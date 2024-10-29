@@ -83,5 +83,6 @@ def test_settings_repr():
         '    api_key=...,\n'
         '    api_key_env=None,\n'
         '    draft=False,\n'
+        "    fork_suffix='',\n"
         ')'
     )
