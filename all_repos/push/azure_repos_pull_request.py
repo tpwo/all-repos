@@ -41,7 +41,7 @@ def make_pull_request(
     }
 
     remote_url = git.remote('.')
-    *prefix, repo_slug = remote_url.split('/')
+    *_, repo_slug = remote_url.split('/')
     remote = 'origin'
     head = branch_name
 
