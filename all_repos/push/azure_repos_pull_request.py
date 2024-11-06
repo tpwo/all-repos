@@ -121,14 +121,9 @@ def _get_fork_details(
 
     for fork in fork_data['value']:
         if fork['name'].endswith(settings.fork_suffix):
-            fork_id = fork['id']
-            fork_url = fork['sshUrl']
-            break
+            return fork['id'], fork['sshUrl']
 
-    if not fork_id or not fork_url:
-        raise ValueError(f'Fork with suffix {settings.fork_suffix} not found')
-
-    return fork_id, fork_url
+    raise ValueError(f'Fork with suffix {settings.fork_suffix} not found')
 
 
 def push(settings: Settings, branch_name: str) -> None:
