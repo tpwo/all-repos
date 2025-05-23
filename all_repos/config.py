@@ -54,6 +54,7 @@ def _check_output_dir(output_dir: str) -> None:
             return
 
         if not (
+                contents >= REPOS_JSON_FILES and
                 all(
                     os.path.isdir(os.path.join(output_dir, d))
                     for d in contents - REPOS_JSON_FILES
