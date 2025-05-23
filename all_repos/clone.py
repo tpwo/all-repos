@@ -152,8 +152,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     else:
         # Remove backed up `repos.json` / `repos_filtered.json` files
         for path in (config.repos_path, config.repos_filtered_path):
-            if os.path.exists(path):
-                os.remove(path + '.bak')
+            bkp_path = path + '.bak'
+            if os.path.exists(bkp_path):
+                os.remove(bkp_path)
 
     return 0
 
