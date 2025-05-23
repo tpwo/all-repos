@@ -148,7 +148,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 print(f'Restored {path}')
             else:
                 os.remove(bkp_path)
-                print(f"New {path} already exists. Removing {bkp_path}")
+                print(f"New {path} already exists. Removed {bkp_path}")
     else:
         # Remove backed up `repos.json` / `repos_filtered.json` files
         for path in (config.repos_path, config.repos_filtered_path):
