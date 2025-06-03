@@ -13,7 +13,6 @@ from collections.abc import Sequence
 from all_repos import cli
 from all_repos import git
 from all_repos import mapper
-from all_repos.config import Config
 from all_repos.config import load_config
 
 
@@ -94,16 +93,16 @@ def _fetch_reset(path: str, *, all_branches: bool) -> None:
 
 
 @contextlib.contextmanager
-def safe_write_json(config: Config) -> Generator[None]:
+def safe_write_json(paths: tuple[str, str]) -> Generator[None]:
     try:
         yield
     except KeyboardInterrupt:
         print('Aborting...')
-        for path in (config.repos_path, config.repos_filtered_path):
+        for path in paths:
             with open(path, 'w') as f:
                 f.write('{}')
     except Exception:
-        for path in (config.repos_path, config.repos_filtered_path):
+        for path in paths:
             with open(path, 'w') as f:
                 f.write('{}')
         raise
@@ -135,7 +134,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         if os.path.exists(path):
             os.remove(path)
 
-    with safe_write_json(config):
+    with safe_write_json((config.repos_path, config.repos_filtered_path)):
         current_repos = set(_get_current_state(config.output_dir).items())
         filtered_repos = set(repos_filtered.items())
 
