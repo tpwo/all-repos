@@ -137,3 +137,11 @@ def test_it_sorts_filtered_repos(file_config):
     repos_filtered = file_config.output_dir.join('repos_filtered.json')
     repos_filtered = json.loads(repos_filtered.read())
     assert sorted(repos_filtered) == list(repos_filtered)
+
+
+def test_it_creates_marker_file(file_config):
+    assert not main(('--config-file', str(file_config.cfg)))
+    assert not file_config.output_dir.join('.all-repos').exists()
+
+    assert not main(('--config-file', str(file_config.cfg)))
+    assert file_config.output_dir.join('.all-repos').exists()
